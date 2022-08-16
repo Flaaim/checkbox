@@ -21,7 +21,6 @@ class DashboardController extends Controller
         $users = User::all();
         
         foreach($users as $user){
-            
             if(!empty($data)){
                 $user->roles()->sync($data[$user->id]);
                } else {
@@ -31,6 +30,7 @@ class DashboardController extends Controller
         return redirect()->back();
        
     }
+    
 
     
 }

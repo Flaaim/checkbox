@@ -18,8 +18,13 @@
         <td>{{$user->id}}</td>
         <td>{{$user->name}}</td>
             @foreach($roles as $role)
-                <td> <input type="checkbox" name="{{$user->id}}[]" 
-                value="{{ $role->id }}"> {{$role->title}}</td>
+                @if($user->hasRoles($role->alias))
+                <td><input type="checkbox" name="{{$user->id}}[]" 
+                value="{{ $role->id }}" checked> {{$role->title}}</td>
+                @else
+                <td><input type="checkbox" name="{{$user->id}}[]" 
+                value="{{ $role->id }}" > {{$role->title}}</td>
+                @endif
             @endforeach
     </tr>
     @endforeach
