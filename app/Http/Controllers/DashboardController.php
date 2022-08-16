@@ -21,8 +21,9 @@ class DashboardController extends Controller
         $users = User::all();
         
         foreach($users as $user){
-            if(!empty($data)){
+            if(isset($data[$user->id])){
                 $user->roles()->sync($data[$user->id]);
+                
                } else {
                 $user->roles()->detach();
                }

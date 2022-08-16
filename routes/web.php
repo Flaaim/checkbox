@@ -13,15 +13,22 @@ use App\Http\Controllers\DashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(LoginController::class)->group(function(){
-    Route::get('/', 'login')->name('index');
-    Route::post('/', 'store')->name('login.store');
+Route::middleware('guest')->group(function(){
+    Route::controller(LoginController::class)->group(function(){
+        Route::get('/', 'login')->name('index');
+        Route::post('/', 'store')->name('login.store');
+    });
+
 });
 
-Route::controller(DashboardController::class)->group(function(){
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
-    Route::post('/dashboard', 'store')->name('dashboard.store');
+Route::middleware('auth')->group(function(){
+        
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::post('/dashboard', 'store')->name('dashboard.store');
+    });
 });
+
 
    
     
