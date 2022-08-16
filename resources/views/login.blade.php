@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<div class="col-6">
 <h1>Login Form</h1>
 @if($errors->any())
     <ul>
@@ -27,4 +28,5 @@
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4" >Sign in</button>
 </form>
+</div>
 @endsection

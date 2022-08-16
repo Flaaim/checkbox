@@ -11,7 +11,7 @@
 <body>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-6"> @yield('content')</div>
+                 @yield('content')
             </div>
         </div>
        

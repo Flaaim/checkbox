@@ -20,6 +20,7 @@ Route::controller(LoginController::class)->group(function(){
 
 Route::controller(DashboardController::class)->group(function(){
     Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::post('/dashboard', 'store')->name('dashboard.store');
 });
 
    
