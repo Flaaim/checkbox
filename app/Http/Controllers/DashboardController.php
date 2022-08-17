@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    
+
     public function dashboard(){
+        
+        $this->authorize('dashboard', User::class);
+
         $users = User::all();
         $roles = Role::all();
-        
-        return view('dashboard', ['users'=>$users, 'roles'=>$roles]);
+        $authUser = Auth::user();
+        return view('dashboard', ['users'=>$users, 'roles'=>$roles, 'authUser'=>$authUser]);
     }
 
     public function store(Request $request){

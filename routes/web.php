@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,14 +19,16 @@ Route::middleware('guest')->group(function(){
         Route::get('/', 'login')->name('index');
         Route::post('/', 'store')->name('login.store');
     });
-
 });
 
 Route::middleware('auth')->group(function(){
-        
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::post('/dashboard', 'store')->name('dashboard.store');
+    });
+
+    Route::controller(LogoutController::class)->group(function(){
+        Route::get('/logout', 'logout')->name('logout');
     });
 });
 

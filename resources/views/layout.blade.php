@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+            @include('navigation')
         <div class="container">
             <div class="row justify-content-center">
                  @yield('content')
