@@ -22,6 +22,7 @@ class DashboardController extends Controller
     }
 
     public function store(Request $request){
+        $this->authorize('store', User::class);
         $data = $request->except('_token');
 
         $users = User::all();
