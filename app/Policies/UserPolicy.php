@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+
 class UserPolicy
 {
     use HandlesAuthorization;
@@ -20,22 +21,12 @@ class UserPolicy
     }
 
     public function dashboard(User $user){
-        foreach($user->roles as $role){
-            if($role->alias == 'ADMINISTRATOR' or $role->alias == 'MODERATOR'){
-                return true;
-            }
-        }
-        
+        return $user->canDo(['ADMINISTRATOR', 'MODERATOR']);
         
     }
 
     public function store(User $user){
-        foreach($user->roles as $role){
-            
-            if($role->alias == 'ADMINISTRATOR'){
-                return true;
-            }
-        }
+       return $user->canDo(['ADMINISTRATOR']);
     }
     
 }

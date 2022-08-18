@@ -57,6 +57,18 @@ class User extends Authenticatable
     }
 
     public function canDo($alias){
-        dd($alias);
+        if(is_array($alias)){
+            foreach($alias as $roleAlias){
+                return $this->canDo($roleAlias);
+            }
+        }else{
+            foreach($this->roles as $role){
+            
+                if($role->alias == $alias){
+                    return true;
+                }
+            }
+        }
+        
     }
 }
