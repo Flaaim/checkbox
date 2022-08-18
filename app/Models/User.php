@@ -56,19 +56,32 @@ class User extends Authenticatable
         }
     }
 
-    public function canDo($alias){
+    public function canDo($alias, $require = false){
+        
         if(is_array($alias)){
             foreach($alias as $roleAlias){
-                return $this->canDo($roleAlias);
+
+               $result = $this->canDo($roleAlias);
+                
+                
+                
+                if($result && !$require){
+                    return true;
+                }elseif(!$result && $require){
+                    return false;
+                }
+                
             }
         }else{
             foreach($this->roles as $role){
-            
+                
                 if($role->alias == $alias){
                     return true;
+                } else {
+                    return false;
                 }
             }
         }
-        
+        return $require;
     }
 }

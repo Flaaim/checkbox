@@ -26,7 +26,7 @@ class UserPolicy
     }
 
     public function store(User $user){
-       return $user->canDo(['ADMINISTRATOR']);
+        return $user->canDo(['MODERATOR', 'ADMINISTRATOR']);
     }
     
 }
