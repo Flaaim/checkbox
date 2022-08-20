@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid justify-content-start">
-  <a class="navbar-brand" href="{{route('dashboard')}}">Checkbox</a>
+  <a class="navbar-brand" href="{{route('permission')}}">Checkbox</a>
     @auth
         @isset($authUser)
     <div class="navbar ">

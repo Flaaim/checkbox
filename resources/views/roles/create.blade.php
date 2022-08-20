@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="col-6">
+<div class="col-8">
     <h2>Создать роль</h2>
     @if($errors->any())
         <ul>

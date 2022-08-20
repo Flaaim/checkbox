@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LogoutController;
@@ -24,10 +23,6 @@ Route::middleware('guest')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
-    Route::controller(DashboardController::class)->group(function(){
-        Route::get('/dashboard', 'dashboard')->name('dashboard');
-        Route::post('/dashboard', 'store')->name('dashboard.store');
-    });
 
     Route::controller(PermissionController::class)->group(function(){
         Route::get('/permissions', 'index')->name('permission');
