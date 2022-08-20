@@ -36,8 +36,21 @@ class RoleController extends Controller
 
         return \Redirect::route('role')->with(['message'=>'Success']);
     }
-    public function update(){
+    public function edit(Request $request, Role $role){
+       
+        $authUser = Auth::user();
+        
+        return view('roles.edit', ['authUser'=>$authUser, 'role'=>$role]);
+    }
 
+    public function update(Request $request, Role $role){
+        $role = Role::find($role->id);
+        $role->update([
+            'title' => $request->title,
+            'alias' => $request->alias,
+        ]);
+        return \Redirect::route('role')->with(['message'=>'Success']);
+        
     }
 
     public function destroy(Role $role){

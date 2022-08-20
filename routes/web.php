@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/role/create', 'create')->name('role.create');
         Route::post('/roles', 'store')->name('role.store');
         Route::delete('/{role}', 'destroy')->name('role.destroy');
+        Route::get('/edit/{role}', 'edit')->name('role.edit');
+        Route::put('/{role}', 'update')->name('role.update');
     });
     
     Route::controller(LogoutController::class)->group(function(){
