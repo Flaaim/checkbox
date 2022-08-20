@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
-use App\Models\Traits\UserRole;
+
 
 class User extends Authenticatable
 {
@@ -48,40 +48,66 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function hasRoles($alias){
-        foreach($this->roles as $role){
-            if($role->alias == $alias){
-                return true;
-            }
-        }
-    }
 
-    public function canDo($alias, $require = false){
-        
+
+    public function hasRole($alias, $require = false){
         if(is_array($alias)){
-            foreach($alias as $roleAlias){
-
-               $result = $this->canDo($roleAlias);
-                
-                
-                
+            foreach($alias as $roleName){
+                $result = $this->hasRole($roleName);
                 if($result && !$require){
                     return true;
-                }elseif(!$result && $require){
+                } else if(!$result && $require){
                     return false;
                 }
-                
             }
         }else{
             foreach($this->roles as $role){
-                
-                if($role->alias == $alias){
+                    if($role->alias == $alias){
+                        return true;
+                    } 
+            }
+        }
+        return $require; 
+    }
+    
+
+    public function canDo($alias, $require = false){
+        if(is_array($alias)){
+            foreach($alias as $permName){
+                $result = $this->canDo($permName);
+                if($result && !$require){
                     return true;
-                } else {
+                } else if(!$result && $require){
                     return false;
                 }
             }
+        }else{
+            foreach($this->roles as $role){
+                foreach($role->permissions as $perms){
+                   
+                    if($perms->alias == $alias){
+
+                        return true;
+                    } 
+                }
+            }
         }
-        return $require;
+        return $require; 
+    }
+
+    public function getRoles(){
+        if($this->roles){
+            return $this->roles;
+        }
+        return [];
+    }
+
+    public function getMergedPermissions(){
+        $result = [];
+            foreach($this->roles as $role){
+                array_merge($result, $role->permissions->toArray());
+            }
+        return $result;
+
     }
 }

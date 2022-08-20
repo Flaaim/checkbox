@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LogoutController;
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,18 @@ Route::middleware('auth')->group(function(){
         Route::post('/dashboard', 'store')->name('dashboard.store');
     });
 
+    Route::controller(PermissionController::class)->group(function(){
+        Route::get('/permissions', 'index')->name('permission');
+        Route::post('/permissions', 'store')->name('permission.store');
+    });
+
+    Route::controller(RoleController::class)->group(function(){
+        Route::get('/roles', 'index')->name('role');
+        Route::get('/role/create', 'create')->name('role.create');
+        Route::post('/roles', 'store')->name('role.store');
+        Route::delete('/{role}', 'destroy')->name('role.destroy');
+    });
+    
     Route::controller(LogoutController::class)->group(function(){
         Route::get('/logout', 'logout')->name('logout');
     });
